@@ -227,6 +227,22 @@ ifeq ($(CONFIG_TOUCHSCREEN_XIAOMI_SYNAPTICS_TCM2), y)
 		obj-$(CONFIG_MSM_TOUCH) += synaptics_tcm2.o
 endif
 
+ifeq ($(CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE), y)
+		LINUX_INC += -include $(TOUCH_ROOT)/xiaomi_touch/xiaomi_touch.h
+		LINUX_INC += -include $(TOUCH_ROOT)/xiaomi_touch/xiaomi_touch_type_common.h
+
+		xiaomi_touch-y := \
+			./xiaomi_touch/xiaomi_touch_core.o  \
+			./xiaomi_touch/xiaomi_touch_device.o  \
+			./xiaomi_touch/xiaomi_touch_evdev.o  \
+			./xiaomi_touch/xiaomi_touch_knock_data.o  \
+			./xiaomi_touch/xiaomi_touch_operations.o  \
+			./xiaomi_touch/xiaomi_touch_proc.o \
+			./xiaomi_touch/xiaomi_touch_sys.o
+
+		obj-$(CONFIG_MSM_TOUCH) += xiaomi_touch.o
+endif
+
 ifneq ($(CONFIG_ARCH_PINEAPPLE), y)
 	ifeq ($(CONFIG_TOUCHSCREEN_PARADE), y)
 		LINUX_INC += -include $(TOUCH_ROOT)/pt/pt_regs.h
