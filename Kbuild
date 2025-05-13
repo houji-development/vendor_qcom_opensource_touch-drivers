@@ -191,6 +191,42 @@ ifeq ($(CONFIG_TOUCHSCREEN_SYNAPTICS_TCM), y)
 
 endif
 
+ifeq ($(CONFIG_TOUCHSCREEN_XIAOMI_SYNAPTICS_TCM2), y)
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/syna_tcm2_cdev.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/syna_tcm2_platform.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/syna_tcm2_runtime.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/syna_tcm2_testing_limits.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/syna_tcm2_testing.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/syna_tcm2.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/tcm/synaptics_touchcom_core_dev.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/tcm/synaptics_touchcom_func_base_flash.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/tcm/synaptics_touchcom_func_base.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/tcm/synaptics_touchcom_func_reflash.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/tcm/synaptics_touchcom_func_touch.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/qts/qts_core_common.h
+		LINUX_INC += -include $(TOUCH_ROOT)/synaptics_tcm2/qts/qts_core.h
+
+		synaptics_tcm2-y := \
+			./synaptics_tcm2/syna_tcm2.o  \
+			./synaptics_tcm2/syna_tcm2_cdev.o  \
+			./synaptics_tcm2/syna_tcm2_platform_spi.o  \
+			./synaptics_tcm2/syna_tcm2_sysfs.o  \
+			./synaptics_tcm2/syna_tcm2_testing.o  \
+			./synaptics_tcm2/syna_xiaomi_driver.o \
+			./synaptics_tcm2/tcm/synaptics_touchcom_core_v1.o  \
+			./synaptics_tcm2/tcm/synaptics_touchcom_core_v2.o \
+			./synaptics_tcm2/tcm/synaptics_touchcom_func_base.o \
+			./synaptics_tcm2/tcm/synaptics_touchcom_func_touch.o  \
+			./synaptics_tcm2/tcm/synaptics_touchcom_func_reflash.o  \
+			./synaptics_tcm2/tcm/synaptics_touchcom_func_romboot.o 
+
+			ifeq (1, $(strip $(CONFIG_TRUSTED_TOUCH)))
+			./synaptics_tcm2/qts/qts_core.o
+			endif
+
+		obj-$(CONFIG_MSM_TOUCH) += synaptics_tcm2.o
+endif
+
 ifneq ($(CONFIG_ARCH_PINEAPPLE), y)
 	ifeq ($(CONFIG_TOUCHSCREEN_PARADE), y)
 		LINUX_INC += -include $(TOUCH_ROOT)/pt/pt_regs.h
