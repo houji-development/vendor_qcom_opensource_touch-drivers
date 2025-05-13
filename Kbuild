@@ -230,10 +230,7 @@ ifeq ($(CONFIG_TOUCHSCREEN_XIAOMI_SYNAPTICS_TCM2), y)
 			./synaptics_tcm2/tcm/synaptics_touchcom_func_touch.o  \
 			./synaptics_tcm2/tcm/synaptics_touchcom_func_reflash.o  \
 			./synaptics_tcm2/tcm/synaptics_touchcom_func_romboot.o 
-
-			ifeq (1, $(strip $(CONFIG_TRUSTED_TOUCH)))
 			./synaptics_tcm2/qts/qts_core.o
-			endif
 
 		obj-$(CONFIG_MSM_TOUCH) += synaptics_tcm2.o
 endif
